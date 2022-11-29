@@ -7,8 +7,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import EditSharpIcon from "@mui/icons-material/EditSharp";
+import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
+import IconButton from "@mui/material/IconButton";
 
-export default function TransactionsList({ transactions }) {
+export default function TransactionsList({ transactions, fetchTransactions }) {
+  async function remove(_id) {
+    if (!window.confirm("Are you Sure!")) return;
+
+    const res = await fetch(`http://localhost:4000/transaction/${_id}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      fetchTransactions();
+      window.alert("Deleted Successfully");
+    }
+  }
+
   return (
     <>
       <Typography sx={{ marginTop: 10 }} variant="h6">
@@ -36,8 +52,16 @@ export default function TransactionsList({ transactions }) {
                 <TableCell align="center">{row.description}</TableCell>
                 <TableCell align="center">{row.date}</TableCell>
                 <TableCell align="center">
-                  <p>edit</p>
-                  delete
+                  <IconButton color="primary" component="label">
+                    <EditSharpIcon />
+                  </IconButton>
+                  <IconButton
+                    color="warning"
+                    component="label"
+                    onClick={() => remove(row._id)}
+                  >
+                    <DeleteSharpIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
