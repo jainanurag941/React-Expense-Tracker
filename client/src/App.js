@@ -2,15 +2,7 @@ import { useEffect, useState } from "react";
 import AppBar from "../src/components/AppBar";
 import TransactionForm from "./components/TransactionForm";
 
-const InitialForm = {
-  amount: 0,
-  description: "",
-  date: "",
-};
-
 function App() {
-  const [form, setForm] = useState(InitialForm);
-
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -23,53 +15,10 @@ function App() {
     setTransactions(data);
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/transaction`, {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: {
-        "content-Type": "application/json",
-      },
-    });
-    if (res.ok) {
-      setForm(InitialForm);
-      fetchTransactions();
-    }
-  }
-
-  function handleInput(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
   return (
     <div>
       <AppBar />
-      <TransactionForm />
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          name="amount"
-          value={form.amount}
-          onChange={handleInput}
-          placeholder="Enter transaction amount"
-        />
-        <input
-          type="text"
-          name="description"
-          value={form.description}
-          onChange={handleInput}
-          placeholder="Enter transaction details"
-        />
-        <input
-          type="date"
-          value={form.date}
-          onChange={handleInput}
-          name="date"
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <TransactionForm fetchTransactions={fetchTransactions} />
 
       <br />
       <section>
