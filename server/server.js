@@ -3,12 +3,11 @@ import connect from "./database/mongodb.js";
 import cors from "cors";
 import bodyParser from "body-parser";
 import Transaction from "./models/Transaction.js";
-import TransactionsAPI from "./routes/TransactionsAPI.js";
-import AuthApi from "./routes/AuthApi.js";
 import * as dotenv from "dotenv";
 import passport from "passport";
 import passportConfig from "./config/passport.js";
-import UserApi from "./routes/UserApi.js";
+
+import routes from "./routes/index.js";
 dotenv.config();
 
 const PORT = 4000;
@@ -24,9 +23,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.use("/transaction", TransactionsAPI);
-app.use("/auth", AuthApi);
-app.use("/user", UserApi);
+app.use("/", routes);
 
 app.listen(PORT, () => {
   console.log("Server is running at PORT 4000");
