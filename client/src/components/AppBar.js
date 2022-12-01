@@ -8,12 +8,16 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../store/auth.js";
 
 export default function ButtonAppBar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function logout() {
+  function _logout() {
     Cookies.remove("token");
+    dispatch(logout());
     navigate("/login");
   }
 
@@ -26,7 +30,7 @@ export default function ButtonAppBar() {
               Expensor
             </Link>
           </Typography>
-          <Button color="inherit" onClick={logout}>
+          <Button color="inherit" onClick={_logout}>
             Logout
           </Button>
           <Link to="/login" className="text-white">
