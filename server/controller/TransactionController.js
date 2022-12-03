@@ -13,6 +13,7 @@ export const create = async (req, res) => {
     amount,
     description,
     user_id: req.user._id,
+    category_id: req.body.category_id,
     date,
   });
 
