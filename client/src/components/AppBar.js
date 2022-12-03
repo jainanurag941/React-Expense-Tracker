@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/auth.js";
 
 export default function ButtonAppBar() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,15 +31,22 @@ export default function ButtonAppBar() {
               Expensor
             </Link>
           </Typography>
-          <Button color="inherit" onClick={_logout}>
-            Logout
-          </Button>
-          <Link to="/login" className="text-white">
-            <Button color="inherit">Login</Button>
-          </Link>
-          <Link to="/register" className="text-white">
-            <Button color="inherit">Register</Button>
-          </Link>
+          {isAuthenticated && (
+            <Button color="inherit" onClick={_logout}>
+              Logout
+            </Button>
+          )}
+
+          {!isAuthenticated && (
+            <>
+              <Link to="/login" className="text-white">
+                <Button color="inherit">Login</Button>
+              </Link>
+              <Link to="/register" className="text-white">
+                <Button color="inherit">Register</Button>
+              </Link>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
