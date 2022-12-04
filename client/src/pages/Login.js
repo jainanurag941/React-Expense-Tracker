@@ -15,7 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "../store/auth.js";
+import { setUser } from "../store/auth.js";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ export default function Login() {
 
     if (res.ok) {
       Cookies.set("token", token);
-      dispatch(getUser(user));
+      dispatch(setUser(user));
       navigate("/");
     }
   };

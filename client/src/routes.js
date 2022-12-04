@@ -1,6 +1,7 @@
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import Category from "./pages/Category";
 import App from "./App";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
@@ -23,7 +24,7 @@ export default createBrowserRouter([
         path: "/login",
         element: (
           <Guest>
-            <Login />,
+            <Login />
           </Guest>
         ),
       },
@@ -31,8 +32,16 @@ export default createBrowserRouter([
         path: "/register",
         element: (
           <Guest>
-            <Register />,
+            <Register />
           </Guest>
+        ),
+      },
+      {
+        path: "/category",
+        element: (
+          <CheckAuth>
+            <Category />
+          </CheckAuth>
         ),
       },
     ],
