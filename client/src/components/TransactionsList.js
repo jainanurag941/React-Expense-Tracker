@@ -12,7 +12,6 @@ import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 import IconButton from "@mui/material/IconButton";
 import dayjs from "dayjs";
 import Cookies from "js-cookie";
-import { useSelector } from "react-redux";
 
 export default function TransactionsList({
   transactions,
