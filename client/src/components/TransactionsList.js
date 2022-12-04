@@ -19,13 +19,6 @@ export default function TransactionsList({
   fetchTransactions,
   setEditTransaction,
 }) {
-  const user = useSelector((state) => state.auth.user);
-
-  function categoryName(id) {
-    const category = user.categories.find((category) => category._id === id);
-    return category ? category.label : "NA";
-  }
-
   async function remove(_id) {
     const token = Cookies.get("token");
     if (!window.confirm("Are you Sure!")) return;
@@ -61,7 +54,6 @@ export default function TransactionsList({
             <TableRow>
               <TableCell align="center">Amount</TableCell>
               <TableCell align="center">Description</TableCell>
-              <TableCell align="center">Category</TableCell>
               <TableCell align="center">Date</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
@@ -76,9 +68,6 @@ export default function TransactionsList({
                   {row.amount}
                 </TableCell>
                 <TableCell align="center">{row.description}</TableCell>
-                <TableCell align="center">
-                  {categoryName(row.category_id)}
-                </TableCell>
                 <TableCell align="center">{formatDate(row.date)}</TableCell>
                 <TableCell align="center">
                   <IconButton

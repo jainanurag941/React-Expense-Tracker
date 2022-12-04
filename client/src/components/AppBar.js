@@ -4,8 +4,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,9 +29,6 @@ export default function ButtonAppBar() {
               Expensor
             </Link>
           </Typography>
-          <Link to="/category" className="text-white">
-            <Button color="inherit">Category</Button>
-          </Link>
           {isAuthenticated && (
             <Button color="inherit" onClick={_logout}>
               Logout

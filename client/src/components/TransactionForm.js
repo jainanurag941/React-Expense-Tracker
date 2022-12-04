@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -17,15 +16,12 @@ const InitialForm = {
   amount: 0,
   description: "",
   date: new Date(),
-  category_id: "",
 };
 
 export default function TransactionForm({
   fetchTransactions,
   editTransaction,
 }) {
-  const { categories } = useSelector((state) => state.auth.user);
-
   const [form, setForm] = useState(InitialForm);
   const token = Cookies.get("token");
 
@@ -85,12 +81,6 @@ export default function TransactionForm({
     reload(res);
   }
 
-  function getCategoryNameById() {
-    return (
-      categories.find((category) => category._id === form.category_id) ?? ""
-    );
-  }
-
   return (
     <Card sx={{ minWidth: 275, marginTop: 10 }}>
       <CardContent>
@@ -127,24 +117,6 @@ export default function TransactionForm({
               )}
             />
           </LocalizationProvider>
-
-          <Autocomplete
-            value={getCategoryNameById()}
-            onChange={(event, newValue) => {
-              setForm({ ...form, category_id: newValue._id });
-            }}
-            id="controllable-states-demo"
-            options={categories}
-            sx={{ width: 200, marginRight: 5 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                sx={{ marginRight: 5 }}
-                size="small"
-                label="Category"
-              />
-            )}
-          />
 
           {editTransaction.amount !== undefined && (
             <Button type="submit" variant="secondary">
